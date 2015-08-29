@@ -1,0 +1,127 @@
+<?php include HEADER_HTML;?>
+<script src="<?php echo JS_PATH;?>/bootstrapValidator.min.js"></script>
+<div class="row">
+    <div class="col-lg-10 col-lg-offset-1">
+        <div class="page-header">
+            <h3>新用户注册</h3>
+        </div>
+
+        <form id="defaultForm" method="post" class="form-horizontal" action="register/registerAct">
+            <div class="form-group">
+                <label class="col-lg-3 control-label">用户名</label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control" name="username" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label">邮箱</label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control" name="email" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label">密码</label>
+                <div class="col-lg-5">
+                    <input type="password" class="form-control" name="password" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">重复密码</label>
+                <div class="col-lg-5">
+                    <input type="password" class="form-control" name="confirmPassword" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-9 col-lg-offset-3">
+                    <button type="submit" class="btn btn-primary">注&nbsp;&nbsp;册</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#defaultForm')
+                .bootstrapValidator({
+                    message: 'This value is not valid',
+                    feedbackIcons: {
+                        valid: 'glyphicon glyphicon-ok',
+                        invalid: 'glyphicon glyphicon-remove',
+                        validating: 'glyphicon glyphicon-refresh'
+                    },
+                    fields: {
+                        username: {
+                            message: '请填写用户名',
+                            validators: {
+                                notEmpty: {
+                                    message: '请填写用户名'
+                                },
+                                stringLength: {
+                                    min: 6,
+                                    max: 30,
+                                    message: '用户名最少6个字符，最多30个字符'
+                                },
+                                remote: {
+                                    url: '/register/checkU',
+                                    message: '用户名已被注册'
+                                },
+                                regexp: {
+                                    regexp: /^[a-zA-Z0-9_\.]+$/,
+                                    message: '用户名只允许填写字符，数字，下划线'
+                                }
+                            }
+                        },
+                        email: {
+                            validators: {
+                                notEmpty: {
+                                    message: '邮箱必须填写'
+                                },
+                                emailAddress: {
+                                    message: '邮箱格式错误'
+                                },
+                                remote: {
+                                    url: '/register/checkE',
+                                    message: '邮箱已被注册'
+                                }
+                            }
+                        },
+                        password: {
+                            validators: {
+                                notEmpty: {
+                                    message: '密码必须填写'
+                                },
+                                different: {
+                                    field: 'username',
+                                    message: '密码和用户名不能相同'
+                                }
+                            }
+                        },
+                        confirmPassword: {
+                            validators: {
+                                notEmpty: {
+                                    message: '请再次填写密码'
+                                },
+                                identical: {
+                                    field: 'password',
+                                    message: '密码不一致'
+                                }
+                            }
+                        }
+                    }
+                }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            $.post($form.attr('action'), $form.serialize(), function (result) {
+                if (result.valid == true) {
+                    window.location.href = "/login";
+                }else{
+                    $form.bootstrapValidator('disableSubmitButtons', false).bootstrapValidator('resetForm', true);
+                    $form.find('.alert').html(result.message).show();
+                }
+            }, 'json');
+        });
+    });
+</script>
+<?php include FOOTER_HTML;?>

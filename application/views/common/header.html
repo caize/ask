@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><?php echo APP_TITLE;?></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="<?php echo CSS_PATH;?>/bootstrap.css">
+        <link rel="stylesheet" href="<?php echo JS_PATH;?>/highlight/styles/tomorrow-night-blue.css">
+        <link rel="stylesheet" href="<?php echo JS_PATH;?>/jquery-confirm/jquery-confirm.css">
+        <link rel="stylesheet" href="<?php echo CSS_PATH;?>/common.css">
+        <script src="<?php echo JS_PATH;?>/jquery-1.11.3.min.js"></script>
+        <script src="<?php echo JS_PATH;?>/bootstrap.min.js"></script>
+        <script src="<?php echo JS_PATH;?>/highlight/highlight.pack.js"></script>
+        <script src="<?php echo JS_PATH;?>/suMarkdown/marked/marked.js"></script>
+        <script src="<?php echo JS_PATH;?>/jquery-confirm/jquery-confirm.js"></script>
+    </head>
+    <body>
+        <div class="common-masthead">
+            <div class="container">
+                <nav class="common-nav">
+                    <a class="common-nav-item navbar-left <?php if($controller=='Index') echo 'active';?>" href="/">HELLO-ASK</a>
+                    <a class="common-nav-item <?php if($controller=='Ask') echo 'active';?>" href="/ask">提问</a>
+                    <a class="common-nav-item navbar-right <?php if($controller=='Register') echo 'active';?>" href="/register">注册</a>
+                    <a class="common-nav-item navbar-right <?php if($controller=='Login') echo 'active';?>" href="/login">登录</a>
+                </nav>
+            </div>
+        </div>
+        <div class="container">

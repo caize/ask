@@ -1,0 +1,65 @@
+<div class="suProgress progress">
+    <div class="progress-bar su-progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+        0%
+    </div>
+</div>
+
+<div class="su-toolbar">
+    <div class="tool-block su-tool-bold" title="加粗(Ctrl+B)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-bold"></span>
+    </div>
+    <div class="tool-block su-tool-italic" title="斜体(Ctrl+I)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-italic"></span>
+    </div>
+    <div class="tool-block su-tool-head" title="标题(Ctrl+H)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-header"></span>
+    </div>
+    <div class="tool-block su-tool-link" title="链接(Ctrl+L)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-link"></span>
+    </div>
+    <div class="tool-block su-tool-img" title="图片(Ctrl+G)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-picture"></span>
+    </div>
+    <div class="tool-block su-tool-list" title="无序列表(Ctrl+U)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-list"></span>
+    </div>
+    <div class="tool-block su-tool-orderlist" title="有序列表(Ctrl+O)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-th-list"></span>
+    </div>
+    <div class="tool-block su-tool-code" title="代码(Ctrl+K)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-asterisk"></span>
+    </div>
+    <div class="tool-block su-tool-quote" title="引用(Ctrl+Q)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-comment"></span>
+    </div>
+
+    <a class="tool-block su-tool-help" href="/editor/markdown" target="_blank" title="帮助" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-info-sign"></span>
+    </a>
+
+    <div class="tool-block pull-right su-tool-preview" title="预览" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-eye-open"></span>
+    </div>
+</div>
+
+<div class="suEditor">
+
+    <textarea name="content" id="answer"></textarea>
+
+</div>
+<div class="suPreview">
+
+</div>
+<button type="button" class="btn btn-success pull-right" id="push_answer">提交回答</button>
+
+<script>
+    $('#push_answer').click(function () {
+            $.post('/answer/push', {content:$('#answer').val()}, function (result) {
+                    if (result.valid == true) {
+                            
+                    } else {
+                           
+                    }
+            }
+    });
+</script>

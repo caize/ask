@@ -1,0 +1,149 @@
+<?php include HEADER_HTML;?>
+<link rel="stylesheet" href="<?php echo JS_PATH;?>/suMarkdown/styles/default.css">
+<script src="<?php echo JS_PATH;?>/suMarkdown/suMarkdown.js"></script>
+<script src="<?php echo JS_PATH;?>/bootstrapValidator.min.js"></script>
+<h1 class="h4 mt20">提问</h1>
+<form id="defaultForm" class="form-horizontal" action="/ask/push">
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input name="title" type="text" class="form-control tagClose input-lg" placeholder="标题：我遇到的开发问题">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input id="tag" name="tag" type="text" class="form-control" placeholder="标签：多个用分号相隔，例如php;mysql">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12" id="tags">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12" id="editor">
+            <div class="suProgress progress">
+                <div class="progress-bar su-progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">20%</div>
+            </div>
+
+            <div class="su-toolbar">
+                <div class="tool-block su-tool-bold" title="加粗(Ctrl+B)" data-placement="top" data-toggle="tooltip">
+                    <span class="glyphicon glyphicon-bold"></span>
+                </div>
+                <div class="tool-block su-tool-italic" title="斜体(Ctrl+I)" data-placement="top" data-toggle="tooltip">
+                    <span class="glyphicon glyphicon-italic"></span>
+                </div>
+                <div class="tool-block su-tool-head" title="标题(Ctrl+H)" data-placement="top" data-toggle="tooltip">
+                    <span class="glyphicon glyphicon-header"></span>
+                </div>
+                <div class="tool-block su-tool-link" title="链接(Ctrl+L)" data-placement="top" data-toggle="tooltip">
+                    <span class="glyphicon glyphicon-link"></span>
+                </div>
+                <div class="tool-block su-tool-img" title="图片(Ctrl+G)" data-placement="top" data-toggle="tooltip">
+                    <span class="glyphicon glyphicon-picture"></span>
+                </div>
+                <div class="tool-block su-tool-list" title="无序列表(Ctrl+U)" data-placement="top" data-toggle="tooltip">
+                    <span class="glyphicon glyphicon-list"></span>
+                </div>
+                <div class="tool-block su-tool-orderlist" title="有序列表(Ctrl+O)" data-placement="top" data-toggle="tooltip">
+                    <span class="glyphicon glyphicon-th-list"></span>
+                </div>
+                <div class="tool-block su-tool-code" title="代码(Ctrl+K)" data-placement="top" data-toggle="tooltip">
+                    <span class="glyphicon glyphicon-asterisk"></span>
+                </div>
+                <div class="tool-block su-tool-quote" title="引用(Ctrl+Q)" data-placement="top" data-toggle="tooltip">
+                    <span class="glyphicon glyphicon-comment"></span>
+                </div>
+
+                <a class="tool-block su-tool-help" href="/editor/markdown" target="_blank" title="帮助" data-placement="top" data-toggle="tooltip">
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                </a>
+
+                <div class="tool-block pull-right su-tool-preview" title="预览" data-placement="top" data-toggle="tooltip">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </div>
+            </div>
+
+            <div class="suEditor">
+                <textarea name="content"></textarea>
+            </div>
+            <div class="suPreview">
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-10">
+            <button type="submit" class="btn btn-primary btn-lg">发布问题</button>
+        </div>
+    </div>
+</form>
+<script>
+    hljs.initHighlightingOnLoad();
+    var option = {
+//            insert:true,
+//        preview: true,
+        height: "100%",
+//            baseUrl:'/statics/js/suMarkdown/theme/default.html',
+        target: '#editor'
+    };
+    $(function () {
+        SuMarkdown(option);
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tag").blur(function(){
+            var str=this.value;
+            var strs= new Array();
+            if(str){
+                strs=str.split(";");
+                var i=0;
+                $("#tags").html("");
+                for (i;i<strs.length ;i++ ){
+                    $("#tags").append("<span class=\"label label-info\" style=\"margin-right:5px;\">"+strs[i]+"</span>");
+                }
+            }
+        });
+        $('#defaultForm')
+                .bootstrapValidator({
+                    message: 'This value is not valid',
+                    feedbackIcons: {
+                        valid: 'glyphicon glyphicon-ok',
+                        invalid: 'glyphicon glyphicon-remove',
+                        validating: 'glyphicon glyphicon-refresh'
+                    },
+                    fields: {
+                        title: {
+                            message: '请填写用户名',
+                            validators: {
+                                notEmpty: {
+                                    message: '请填写标题'
+                                },
+                                stringLength: {
+                                    min: 6,
+                                    message: '用户名最少6个字符'
+                                }
+                            }
+                        },
+                        content: {
+                            validators: {
+                                notEmpty: {
+                                    message: '请填写问题的详细描述'
+                                }
+                            }
+                        }
+                    }
+                }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            $.post($form.attr('action'), $form.serialize(), function (result) {
+                if (result.valid == true) {
+                    window.location.href = "/question?id="+result.data.id;
+                } else {
+                    $form.bootstrapValidator('disableSubmitButtons', false).bootstrapValidator('resetForm', true);
+                    $form.find('.alert').html(result.message).show();
+                }
+            }, 'json');
+        });
+    });
+</script>
+<?php include FOOTER_HTML;?>
