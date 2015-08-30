@@ -1,18 +1,18 @@
-<?php include HEADER_HTML;?>
-<link rel="stylesheet" href="<?php echo JS_PATH;?>/suMarkdown/styles/default.css">
-<script src="<?php echo JS_PATH;?>/suMarkdown/suMarkdown.js"></script>
-<script src="<?php echo JS_PATH;?>/bootstrapValidator.min.js"></script>
+{include file="common/header.html"}
+<link rel="stylesheet" href="{$smarty.const.JS_PATH}/suMarkdown/styles/default.css">
+<script src="{$smarty.const.JS_PATH}/suMarkdown/suMarkdown.js"></script>
+<script src="{$smarty.const.JS_PATH}/bootstrapValidator.min.js"></script>
 <h1 class="h4 mt20">提问</h1>
 <form id="defaultForm" class="form-horizontal" action="/ask/push">
-    <input type="hidden" name="id" value="<?echo $question['id'];?>" />
+    <input type="hidden" name="id" value="{$question.id}" />
     <div class="form-group">
         <div class="col-sm-12">
-            <input name="title" value="<?echo $question['title'];?>" type="text" class="form-control tagClose input-lg" placeholder="标题：我遇到的开发问题">
+            <input name="title" value="{$question.title}" type="text" class="form-control tagClose input-lg" placeholder="标题：我遇到的开发问题">
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-12">
-            <input id="tag" value="<?echo $question['tags'];?>" name="tag" type="text" class="form-control" placeholder="标签：多个用分号相隔，例如php;mysql">
+            <input id="tag" value="{$question.tags}" name="tag" type="text" class="form-control" placeholder="标签：多个用分号相隔，例如php;mysql">
         </div>
     </div>
     <div class="form-group">
@@ -64,7 +64,7 @@
             </div>
 
             <div class="suEditor">
-                <textarea name="content"><?echo $question['content'];?></textarea>
+                <textarea name="content">{$question.content}</textarea>
             </div>
             <div class="suPreview">
 
@@ -77,6 +77,7 @@
         </div>
     </div>
 </form>
+{literal}
 <script>
     hljs.initHighlightingOnLoad();
     var option = {
@@ -147,4 +148,5 @@
         });
     });
 </script>
-<?php include FOOTER_HTML;?>
+{/literal}
+{include file="common/footer.html"}

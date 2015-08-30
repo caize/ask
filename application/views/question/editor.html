@@ -51,6 +51,8 @@
     <button type="button" class="btn btn-success" id="push_answer">提交回答</button>
 </div>
 <script>
+    var question_id={$question.id};
+    {literal}
     var option = {
             height: "100%",
             target: '#editor'
@@ -59,7 +61,7 @@
             SuMarkdown(option);
     });
     $('#push_answer').click(function () {
-            $.post('/answer/push', {content: $('#answer').val(), question_id: <?php echo $question['id']; ?>}, function (result) {
+            $.post('/answer/push', {content: $('#answer').val(), question_id:question_id}, function (result) {
                     if (result.valid == true) {
                             window.location.reload();
                     } else {
@@ -73,4 +75,5 @@
                     }
             }, "json");
     });
+    {/literal}
 </script>

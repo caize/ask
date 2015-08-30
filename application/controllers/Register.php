@@ -2,11 +2,8 @@
 
 class RegisterController extends BasicController {
 
-        private $m_user;
-
         public function init() {
                 parent::init();
-                $this->m_user = $this->load('user');
                 $userID = $this->getSession('userID');
 
                 if ($userID) {

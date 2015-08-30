@@ -1,17 +1,17 @@
-<?php include HEADER_HTML;?>
-<?php include(VIEW_PATH."/common/wrapper.html");?>
+{include file="common/header.html"}
+{include file="common/wrapper.html"}
             <div class="row">
                 <div class="col-sm-9 blog-main">
-<?php foreach($questions as $key=>$value){?>
+{foreach from=$questions item=value}
                     <div class="blog-post">
-                        <h2 class="blog-post-title"><a href='/question?id=<?php echo $value['id'];?>'><?php echo $value['title'];?></a></h2>
-                        <p class="blog-post-meta"><?php echo date("Y-m-d H:i:s",$value['create_time']);?></p>
-                        <p><?php echo $value['content'];?></p>
+                        <h2 class="blog-post-title"><a href="/question?id={$value.id}">{$value.title}</a></h2>
+                        <p class="blog-post-meta">{$value.create_time}</p>
+                        <p>{$value.content}</p>
                     </div>
-<?php };?>
+{/foreach}
                     <nav>
                         <ul class="pager">
-                            <?php echo $pageStr;?>
+                            {$pageStr}
                         </ul>
                     </nav>
 
@@ -52,4 +52,4 @@
             </div>
 
 
-<?php include FOOTER_HTML;?>
+{include file="common/footer.html"}

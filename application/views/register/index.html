@@ -1,5 +1,5 @@
-<?php include HEADER_HTML;?>
-<script src="<?php echo JS_PATH;?>/bootstrapValidator.min.js"></script>
+{include file="common/header.html"}
+<script src="{$smarty.const.JS_PATH}/bootstrapValidator.min.js"></script>
 <div class="row">
     <div class="col-lg-10 col-lg-offset-1">
         <div class="page-header">
@@ -41,6 +41,7 @@
         </form>
     </div>
 </div>
+{literal}
 <script type="text/javascript">
     $(document).ready(function () {
         $('#defaultForm')
@@ -124,4 +125,5 @@
         });
     });
 </script>
-<?php include FOOTER_HTML;?>
+{/literal}
+{include file="common/footer.html"}

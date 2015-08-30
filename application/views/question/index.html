@@ -1,36 +1,34 @@
-<?php include HEADER_HTML;?>
-<link rel="stylesheet" href="<?php echo JS_PATH;?>/suMarkdown/styles/default.css">
-<script src="<?php echo JS_PATH;?>/suMarkdown/suMarkdown.js"></script>
-<script src="<?php echo JS_PATH;?>/bootstrapValidator.min.js"></script>
+{include file="common/header.html"}
+<link rel="stylesheet" href="{$smarty.const.JS_PATH}/suMarkdown/styles/default.css">
+<script src="{$smarty.const.JS_PATH}/suMarkdown/suMarkdown.js"></script>
+<script src="{$smarty.const.JS_PATH}/bootstrapValidator.min.js"></script>
             <div class="row">
                 <div class="col-sm-8 blog-main">
                     <div class="blog-post">
-                        <h2 class="blog-post-title"><?php echo $question['title'];?></h2>
-                        <p class="blog-post-meta">Time : <?php echo date("Y-m-d H:i:s",$question['create_time']);?>
+                        <h2 class="blog-post-title">{$question.title}</h2>
+                        <p class="blog-post-meta">Time : {"Y-m-d H:i:s"|date:$question.create_time}
                             &nbsp;&nbsp;
-                            <a href="/ask/edit?id=<?php echo $question['id'];?>">编辑</a>
+                            <a href="/ask/edit?id={$question.id}">编辑</a>
                         </p>
                         <p class="blog-post-meta">Tags : 
-                            <?php
+                            {php}
                                 $tags=explode(';', $question['tags']);
-                                foreach($tags as $value){
-                            ?>
-                            <span class="label label-info"><?php echo $value;?></span>
-                            <?php }?>
+                            {/php}
+                            {foreach from=$tags item=value}
+                            <span class="label label-info">{$value}</span>
+                            {/foreach}
                         </p>
                     </div>
-                    <div class="marked"><?php echo $question['content'];?></div>
-                    <div><?php echo count($answers);?>个答案</div>
+                    <div class="marked">{$question.content}</div>
+                    <div>个答案</div>
                     <hr />
-                    <?php
-                    if($answers)
-                    foreach($answers as $answer){?>
-                    <div class="answer marked"><?php echo $answer['content'];?></div>
-                    <?php }?>
-                    <?php include VIEW_PATH.'/question/editor.html'?>
+                    {foreach from=$answers item=answer}
+                    <div class="answer marked">{$answer.content}</div>
+                    {/foreach}
+                    {include file='question/editor.html'}
                     <nav>
                         <ul class="pager">
-                            <?php echo $pageStr;?>
+                            {$pageStr}
                         </ul>
                     </nav>
 
@@ -69,5 +67,5 @@
                 </div><!-- /.blog-sidebar -->
 
             </div>
-<script src="<?php echo JS_PATH;?>/controllers/question.js"></script>
-<?php include FOOTER_HTML;?>
+<script src="{$smarty.const.JS_PATH}/controllers/question.js"></script>
+{include file="common/footer.html"}

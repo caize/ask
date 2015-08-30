@@ -40,16 +40,19 @@ h1, .h1,h2, .h2,h3, .h3,h4, .h4,h5, .h5,h6, .h6 {
     display: inline-block;
     padding: 10px;
     font-weight: 500;
+    color: #fff;
+}
+.common-nav-item a{
     color: #cdddeb;
 }
-.common-nav-item:hover,
-.common-nav-item:focus {
+.common-nav-item a:hover,
+.common-nav-item a:focus {
     color: #fff;
     text-decoration: none;
 }
 
 /* Active state gets a caret at the bottom */
-.common-nav .active {
+.common-nav a.active {
     color: #fff;
 }
 .common-nav .active:after {

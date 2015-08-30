@@ -1,7 +1,7 @@
-<?php include HEADER_HTML;?>
-<link rel="stylesheet" href="<?php echo JS_PATH;?>/suMarkdown/styles/default.css">
-<script src="<?php echo JS_PATH;?>/suMarkdown/suMarkdown.js"></script>
-<script src="<?php echo JS_PATH;?>/bootstrapValidator.min.js"></script>
+{include file="common/header.html"}
+<link rel="stylesheet" href="{$smarty.const.JS_PATH}/suMarkdown/styles/default.css">
+<script src="{$smarty.const.JS_PATH}/suMarkdown/suMarkdown.js"></script>
+<script src="{$smarty.const.JS_PATH}/bootstrapValidator.min.js"></script>
 <h1 class="h4 mt20">提问</h1>
 <form id="defaultForm" class="form-horizontal" action="/ask/push">
     <div class="form-group">
@@ -76,6 +76,7 @@
         </div>
     </div>
 </form>
+{literal}
 <script>
     hljs.initHighlightingOnLoad();
     var option = {
@@ -146,4 +147,5 @@
         });
     });
 </script>
-<?php include FOOTER_HTML;?>
+{/literal}
+{include file="common/footer.html"}

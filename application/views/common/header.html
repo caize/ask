@@ -1,27 +1,45 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><?php echo APP_TITLE;?></title>
+        <title>{$smarty.const.APP_TITLE}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="<?php echo CSS_PATH;?>/bootstrap.css">
-        <link rel="stylesheet" href="<?php echo JS_PATH;?>/highlight/styles/tomorrow-night-blue.css">
-        <link rel="stylesheet" href="<?php echo JS_PATH;?>/jquery-confirm/jquery-confirm.css">
-        <link rel="stylesheet" href="<?php echo CSS_PATH;?>/common.css">
-        <script src="<?php echo JS_PATH;?>/jquery-1.11.3.min.js"></script>
-        <script src="<?php echo JS_PATH;?>/bootstrap.min.js"></script>
-        <script src="<?php echo JS_PATH;?>/highlight/highlight.pack.js"></script>
-        <script src="<?php echo JS_PATH;?>/suMarkdown/marked/marked.js"></script>
-        <script src="<?php echo JS_PATH;?>/jquery-confirm/jquery-confirm.js"></script>
+        <link rel="stylesheet" href="{$smarty.const.CSS_PATH}/bootstrap.css">
+        <link rel="stylesheet" href="{$smarty.const.JS_PATH}/highlight/styles/tomorrow-night-blue.css">
+        <link rel="stylesheet" href="{$smarty.const.JS_PATH}/jquery-confirm/jquery-confirm.css">
+        <link rel="stylesheet" href="{$smarty.const.CSS_PATH}/common.css">
+        <script src="{$smarty.const.JS_PATH}/jquery-1.11.3.min.js"></script>
+        <script src="{$smarty.const.JS_PATH}/bootstrap.min.js"></script>
+        <script src="{$smarty.const.JS_PATH}/highlight/highlight.pack.js"></script>
+        <script src="{$smarty.const.JS_PATH}/suMarkdown/marked/marked.js"></script>
+        <script src="{$smarty.const.JS_PATH}/jquery-confirm/jquery-confirm.js"></script>
     </head>
     <body>
         <div class="common-masthead">
             <div class="container">
                 <nav class="common-nav">
-                    <a class="common-nav-item navbar-left <?php if($controller=='Index') echo 'active';?>" href="/">HELLO-ASK</a>
-                    <a class="common-nav-item <?php if($controller=='Ask') echo 'active';?>" href="/ask">提问</a>
-                    <a class="common-nav-item navbar-right <?php if($controller=='Register') echo 'active';?>" href="/register">注册</a>
-                    <a class="common-nav-item navbar-right <?php if($controller=='Login') echo 'active';?>" href="/login">登录</a>
+                    <li class="common-nav-item navbar-left {if $controller eq 'Index'} active'{/if}">
+                        <a href="/">HELLO-ASK</a>
+                    </li>
+                    <li class="common-nav-item {if $controller eq 'Ask'} active{/if}">
+                        <a href="/ask">提问</a>
+                    </li>
+                    {if $smarty.session.userID}
+                    <li class="dropdown common-nav-item navbar-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$smarty.session.username} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="user">个人中心</a></li>
+                            <li><a href="user/loginout">退出</a></li>
+                        </ul>
+                    </li>
+                    {else}
+                    <li class="common-nav-item navbar-right {if $controller eq 'Register'} active {/if}">
+                        <a href="/register">注册</a>
+                    </li>
+                    <li class="common-nav-item navbar-right {if $controller eq 'Login'} active {/if}">
+                        <a href="/login">登录</a>
+                    </li>
+                    {/if}
                 </nav>
             </div>
         </div>

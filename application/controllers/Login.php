@@ -2,13 +2,10 @@
 
 class LoginController extends BasicController {
 
-	private $m_user;
-
-	public function init(){
+        public function init(){
 		parent::init();
-		$this->m_user = $this->load('user');
 		$userID = $this->getSession('userID');
-
+                $this->m_user = $this->load('user');
 		if($userID){
 			jsRedirect('/user/profile');
 		}
