@@ -17,6 +17,7 @@ class QuestionController extends BasicController {
                 $this->getView()->assign('question', $question);
                 
                 $answer = $this->m_answer->Where(array("question_id" => $question_id))->Select();
+                $this->getView()->assign('answersCount',  count($answer));
                 $this->getView()->assign('answers', $answer);
         }
 

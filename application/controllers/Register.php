@@ -2,10 +2,12 @@
 
 class RegisterController extends BasicController {
 
+        protected $m_user;
+
         public function init() {
                 parent::init();
                 $userID = $this->getSession('userID');
-
+                $this->m_user = $this->load('user');
                 if ($userID) {
                         jsRedirect('/user/profile');
                 }
@@ -42,7 +44,7 @@ class RegisterController extends BasicController {
                 $m['email'] = $this->getPost('email');
                 $m['password'] = $this->getPost('password');
                 $confirmPassword = $this->getPost('confirmPassword');
-                if (!$m['username'] || !$m['password'] || !$m['email'] || !$m['confirmPassword']) {
+                if (!$m['username'] || !$m['password'] || !$m['email'] || !$confirmPassword) {
                         $error = '您所提交的信息不完整！';
                         returnJson(false, $error);
                 }

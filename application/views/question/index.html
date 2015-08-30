@@ -8,7 +8,9 @@
                         <h2 class="blog-post-title">{$question.title}</h2>
                         <p class="blog-post-meta">Time : {"Y-m-d H:i:s"|date:$question.create_time}
                             &nbsp;&nbsp;
+                            {if $smarty.session.userID eq $question.user_id}
                             <a href="/ask/edit?id={$question.id}">编辑</a>
+                            {/if}
                         </p>
                         <p class="blog-post-meta">Tags : 
                             {php}
@@ -19,8 +21,8 @@
                             {/foreach}
                         </p>
                     </div>
-                    <div class="marked">{$question.content}</div>
-                    <div>个答案</div>
+                    <div class="marked">{$question.content|stripcslashes}</div>
+                    <div>{$answersCount}个答案</div>
                     <hr />
                     {foreach from=$answers item=answer}
                     <div class="answer marked">{$answer.content}</div>

@@ -3,7 +3,6 @@
 class BasicController extends Yaf_Controller_Abstract {
 
         protected $homeUrl;
-        protected $m_user;
 
         public function init() {
                 $this->getView()->assign('controller', $this->getRequest()->controller);

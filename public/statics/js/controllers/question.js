@@ -32,7 +32,7 @@ $(function () {
                 }
         });
         $.each(markedModel,function(i,obj){
-                var markDown=marked($(this).text());
+                var markDown=marked($(this).html());
                 $(this).html(markDown);
         });
 });

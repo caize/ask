@@ -90,6 +90,7 @@ class Bootstrap extends Yaf_Bootstrap_Abstract {
 
     public function _initView(Yaf_Dispatcher $dispatcher) {
         $view = new Smarty_Adapter(null, Yaf_Registry::get("config")->get("smarty"));
+//        $view->_smarty->register_function("checkAuth","checkAuth");  
         $dispatcher->setView($view);
     }
 

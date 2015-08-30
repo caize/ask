@@ -20,6 +20,9 @@ class AskController extends BasicController {
         public function editAction() {
                 $id = $this->get('id');
                 $question = $this->m_question->Where(array('id' => $id))->SelectOne();
+                if(!checkAuth($this->getSession('userID'), $question['user_id'])){
+                        jsRedirect('question?id='.$id);
+                }
                 $this->getView()->assign('question', $question);
         }
 
@@ -32,7 +35,7 @@ class AskController extends BasicController {
                 $tags = $this->getPost('tag');
                 $tags = explode(";", $tags);
                 $m['tags'] = implode(';', $tags);
-                $m['content'] = $this->getPost('content');
+                $m['content'] = addslashes($this->getPost('content',false));
                 if (empty($m['content'])) {
                         returnJson(FALSE, "错误的内容");
                 }
